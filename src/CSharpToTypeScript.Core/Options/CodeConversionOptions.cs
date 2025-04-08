@@ -1,3 +1,6 @@
+using CSharpToTypeScript.Core.Models;
+using System.Collections.Generic;
+
 namespace CSharpToTypeScript.Core.Options
 {
     public class CodeConversionOptions : ModuleNameConversionOptions
@@ -7,7 +10,7 @@ namespace CSharpToTypeScript.Core.Options
             bool toCamelCase = true, bool removeInterfacePrefix = true, ImportGenerationMode importGenerationMode = ImportGenerationMode.None,
             bool useKebabCase = false, bool appendModelSuffix = false, QuotationMark quotationMark = QuotationMark.Double,
             bool appendNewLine = false, bool stringEnums = false, bool enumStringToCamelCase = false,
-            OutputType outputType = OutputType.Interface)
+            OutputType outputType = OutputType.Class)
         : base(useKebabCase, appendModelSuffix, removeInterfacePrefix)
         {
             Export = export;
@@ -23,7 +26,7 @@ namespace CSharpToTypeScript.Core.Options
             EnumStringToCamelCase = enumStringToCamelCase;
             OutputType = outputType;
         }
-
+        public List<RootNode> AllRootNodes { get; set; } = new List<RootNode>();
         public bool Export { get; set; }
         public bool UseTabs { get; set; }
         public int? TabSize { get; set; }

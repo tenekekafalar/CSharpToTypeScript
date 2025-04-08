@@ -10,18 +10,15 @@
     <PackageOutputPath>./nupkg</PackageOutputPath>
 
     <PackageId>CSharpToTypeScript.CLITool</PackageId>
-    <Version>2.5.1</Version>
+    <Version>4.5.3</Version>
     <Authors>AdrianWilczynski</Authors>
     <PackageDescription>Convert C# Models, ViewModels and DTOs into their TypeScript equivalents.</PackageDescription>
     <RepositoryUrl>https://github.com/AdrianWilczynski/CSharpToTypeScript.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/AdrianWilczynski/CSharpToTypeScript/tree/master/src/CSharpToTypeScript.CLITool</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
+    <StartupObject></StartupObject>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\CSharpToTypeScript.Core\CSharpToTypeScript.Core.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.5.1" />
@@ -31,6 +28,10 @@
 
   <ItemGroup>
     <None Include="img\icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpToTypeScript.Core\CSharpToTypeScript.Core.csproj" />
   </ItemGroup>
 
 </Project>

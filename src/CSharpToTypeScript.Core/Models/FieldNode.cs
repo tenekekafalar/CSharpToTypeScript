@@ -26,7 +26,7 @@ namespace CSharpToTypeScript.Core.Models
                 .EscapeBackslashes()
                 .EscapeQuotes(options.QuotationMark)
                 .TransformIf(!JsonPropertyName.IsValidIdentifier(), StringUtilities.InQuotes(options.QuotationMark))
-            ?? Name.TransformIf(options.ToCamelCase, StringUtilities.ToCamelCase))
+            ?? Name.TransformIf(options.ToCamelCase, StringUtilities.ToCamelCase))+ "!"
             // separator
             + "?".If(Type.IsOptional(options, out _)) + ": "
             // type

@@ -20,7 +20,7 @@ namespace CSharpToTypeScript.Core.Services
             _typeConverter = typeConverter;
         }
 
-        public RootTypeNode Convert(TypeDeclarationSyntax type)
+        public RootTypeNode Convert(TypeDeclarationSyntax type,string filePath)
             => new RootTypeNode(
                 name: type.Identifier.ValueText,
                 fields: type.ChildNodes()
@@ -36,7 +36,8 @@ namespace CSharpToTypeScript.Core.Services
                 baseTypes: ConvertBaseTypes(
                     type.BaseList?.Types ?? Enumerable.Empty<BaseTypeSyntax>(),
                     type),
-                fromInterface: type is InterfaceDeclarationSyntax);
+                fromInterface: type is InterfaceDeclarationSyntax,
+                sourceFilePath: filePath);
 
         private FieldNode ConvertProperty(PropertyDeclarationSyntax property)
             => new FieldNode(

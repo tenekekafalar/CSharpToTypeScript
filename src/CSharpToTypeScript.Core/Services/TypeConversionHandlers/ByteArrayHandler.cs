@@ -22,7 +22,7 @@ namespace CSharpToTypeScript.Core.Services.TypeConversionHandlers
                             .Aggregate(0, (total, specifier) => total + specifier.Rank));
                 }
 
-                return new String();
+                return new ByteArray();
             }
 
             return base.Handle(type);

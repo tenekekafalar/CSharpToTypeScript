@@ -61,19 +61,23 @@ namespace CSharpToTypeScript.CLITool.Commands
 
         private void OnInputIsDirectory()
         {
-            var files = FileSystem.GetFilesWithExtension(Input, "cs")
-                .Select(f => new
-                {
-                    OutputPath = GetOutputFilePath(f, Output, CodeConversionOptions),
-                    Content = _codeConverter.ConvertToTypeScript(File.ReadAllText(f), CodeConversionOptions)
-                })
-                .Where(f => !string.IsNullOrWhiteSpace(f.Content))
-                .GroupBy(f => f.OutputPath)
-                .Select(g => g.First());
+            // 1. .cs dosyalarýný oku
+            var fileMap = FileSystem.GetFilesWithExtension(Input, "cs")
+                .ToDictionary(f => f, f => File.ReadAllText(f));
 
-            foreach (var file in files)
+            // 2. AllRootNodes bilgisi ile toplu çeviri yap
+            var results = _codeConverter.ConvertAllToTypeScript(fileMap, CodeConversionOptions);
+
+            // 3. Ayný OutputPath hesaplamayý kullan
+            foreach (var (inputPath, tsCode) in results)
             {
-                CreateOrUpdateFile(file.OutputPath, file.Content, PartialOverride);
+                var outputPath = GetOutputFilePath(
+                    inputPath,
+                    Output + Path.GetRelativePath(Input, Path.GetDirectoryName(inputPath)),
+                    CodeConversionOptions);
+
+                if (!string.IsNullOrWhiteSpace(tsCode))
+                    CreateOrUpdateFile(outputPath, tsCode, PartialOverride);
             }
         }
 

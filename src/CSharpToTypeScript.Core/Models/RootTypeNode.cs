@@ -11,16 +11,18 @@ namespace CSharpToTypeScript.Core.Models
     internal class RootTypeNode : RootNode
     {
         public RootTypeNode(string name, IEnumerable<FieldNode> fields, IEnumerable<string> genericTypeParameters,
-            IEnumerable<TypeNode> baseTypes, bool fromInterface)
+            IEnumerable<TypeNode> baseTypes, bool fromInterface, string sourceFilePath)
         {
             Name = name;
             Fields = fields;
             GenericTypeParameters = genericTypeParameters;
             BaseTypes = baseTypes;
             FromInterface = fromInterface;
+            this.SourceFilePath = sourceFilePath;
         }
 
         public override string Name { get; }
+        public override string SourceFilePath { get; }
         public IEnumerable<FieldNode> Fields { get; }
         public IEnumerable<string> GenericTypeParameters { get; }
         public IEnumerable<TypeNode> BaseTypes { get; }

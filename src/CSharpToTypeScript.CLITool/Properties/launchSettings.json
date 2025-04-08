@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "CSharpToTypeScript.CLITool": {
+      "commandName": "Project",
+      "commandLineArgs": "--import-generation Simple --preserve-interface-prefix --preserve-casing --append-new-line --quotation-mark Double -o \"E:\\Git Repos\\remastered-feign-shared\\ClientServerModels\"\r\n",
+      "workingDirectory": "C:\\Unity\\Projects\\feign-remastered\\Assets\\Scripts\\Models"
+    }
+  }
+}

@@ -8,14 +8,16 @@ namespace CSharpToTypeScript.Core.Models
 {
     internal class RootEnumNode : RootNode
     {
-        public RootEnumNode(string name, IEnumerable<EnumMemberNode> members)
+        public RootEnumNode(string name, IEnumerable<EnumMemberNode> members, string sourceFilePath)
         {
             Name = name;
             Members = members;
+            SourceFilePath = sourceFilePath;
         }
 
         public override string Name { get; }
         public IEnumerable<EnumMemberNode> Members { get; }
+        public override string SourceFilePath { get; }
 
         public override string WriteTypeScript(CodeConversionOptions options, Context context)
             =>  // keywords

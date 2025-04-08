@@ -7,7 +7,7 @@ namespace CSharpToTypeScript.Core.Transformations
     {
         public static string Transform(string name, ModuleNameConversionOptions options)
             => name.TransformIf(options.RemoveInterfacePrefix, StringUtilities.RemoveInterfacePrefix)
-                .TransformIfElse(options.UseKebabCase, StringUtilities.ToKebabCase, StringUtilities.ToCamelCase)
+                .TransformIf(options.UseKebabCase, StringUtilities.ToKebabCase)
                 .TransformIf(options.AppendModelSuffix, n => n + ".model");
     }
 }

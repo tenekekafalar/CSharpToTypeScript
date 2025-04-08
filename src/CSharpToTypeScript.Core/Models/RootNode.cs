@@ -4,9 +4,11 @@ using CSharpToTypeScript.Core.Options;
 
 namespace CSharpToTypeScript.Core.Models
 {
-    internal abstract class RootNode : IWritableNode, IDependentNode
+    public abstract class RootNode : IWritableNode, IDependentNode
     {
         public abstract string Name { get; }
+        
+        public virtual string SourceFilePath { get; }
 
         public virtual IEnumerable<string> Requires => Enumerable.Empty<string>();
 

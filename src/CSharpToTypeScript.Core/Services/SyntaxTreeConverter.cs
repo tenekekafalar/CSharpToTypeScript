@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CSharpToTypeScript.Core.Models;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -18,16 +19,20 @@ namespace CSharpToTypeScript.Core.Services
             _rootEnumConverter = rootEnumConverter;
         }
 
-        public FileNode Convert(CompilationUnitSyntax root)
-            => new FileNode(ConvertRootNodes(root));
+        public FileNode Convert(SyntaxTree syntaxTree)
+        {
+            var root = syntaxTree.GetCompilationUnitRoot();
+            var filePath = syntaxTree.FilePath;
+            return new FileNode(ConvertRootNodes(root, filePath));
+        }
 
-        private IEnumerable<RootNode> ConvertRootNodes(CompilationUnitSyntax root)
+        private IEnumerable<RootNode> ConvertRootNodes(CompilationUnitSyntax root, string filePath)
             => root.DescendantNodes()
                 .Where(node => (node is TypeDeclarationSyntax type && IsNotStatic(type)) || node is EnumDeclarationSyntax)
                 .Select(node => node switch
                 {
-                    TypeDeclarationSyntax type => (RootNode)_rootTypeConverter.Convert(type),
-                    EnumDeclarationSyntax @enum => _rootEnumConverter.Convert(@enum),
+                    TypeDeclarationSyntax type => (RootNode)_rootTypeConverter.Convert(type, filePath),
+                    EnumDeclarationSyntax @enum => _rootEnumConverter.Convert(@enum, filePath),
                     _ => throw new ArgumentException("Unknown syntax type.")
                 })
                 .ToList();
